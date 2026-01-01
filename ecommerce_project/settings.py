@@ -18,12 +18,14 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('django-insecure-&82+gd+q88&l^z+uq5p2_j-y%c)9@f2c56^fvchdwnn4pr)^9k')
+SECRET_KEY = os.getenv('SECRET_KEY')
+# print("SECRET_KEY =", os.getenv("SECRET_KEY"))
+# if not SECRET_KEY:
+#     raise Exception("SECRET_KEY not found in .env")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG') == 'True'
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'ecommerce_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
