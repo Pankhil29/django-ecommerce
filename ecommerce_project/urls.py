@@ -22,4 +22,7 @@ from ecommerce_project import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name='home'),
+    
+    # products
+    
 ]
