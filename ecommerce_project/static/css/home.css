@@ -1,0 +1,18 @@
+* {
+    font-family: 'poppins', sans-serif;
+}
+
+.logo {
+    font-size: 29px;
+    font-family: "Atomic Age", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+header a {
+    color: inherit;
+}
+
+header a:hover {
+    text-decoration: none;
+}
