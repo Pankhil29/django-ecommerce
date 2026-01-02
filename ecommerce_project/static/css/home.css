@@ -13,6 +13,15 @@ header a {
     color: inherit;
 }
 
+.shopping {
+    color: #22C55E;
+}
+
 header a:hover {
     text-decoration: none;
+}
+
+.btn-colors {
+    background-color: #22C55E;
+    border-color: #22C55E;
 }
