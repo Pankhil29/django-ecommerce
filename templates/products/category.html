@@ -1,10 +1,150 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
-    <h1>Category List</h1>
-    {% for cat in category %}
-    <h2>{{cat.category_name}}</h2>
-    <p>{{cat.description}}</p>
-    {% endfor %}
+
+<style>
+    /* ===== Ultra Modern category Card ===== */
+    .category-card {
+        position: relative;
+        border-radius: 20px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.75);
+        backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transition: all 0.4s ease;
+    }
+
+    .category-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 20px;
+        padding: 2px;
+        background: linear-gradient(135deg, #6f42c1, #0d6efd, #20c997);
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        opacity: 0;
+        transition: 0.4s;
+    }
+
+    .category-card:hover::before {
+        opacity: 1;
+    }
+
+    .category-card:hover {
+        transform: translateY(-14px);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+    }
+
+    /* Image */
+    .category-img-wrap {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .category-img {
+        height: 240px;
+        width: 100%;
+        object-fit: cover;
+        transition: transform 0.6s ease, filter 0.6s ease;
+    }
+
+    .category-card:hover .category-img {
+        transform: scale(1.15);
+        filter: brightness(0.9);
+    }
+
+    /* Price Chip */
+    .price-chip {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        padding: 6px 14px;
+        font-size: 14px;
+        border-radius: 999px;
+        background: rgba(0, 0, 0, 0.65);
+        color: #fff;
+        backdrop-filter: blur(8px);
+    }
+
+    /* Floating Actions */
+    .action-btns {
+        position: absolute;
+        bottom: -60px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        transition: 0.4s;
+    }
+
+    .category-card:hover .action-btns {
+        bottom: 18px;
+    }
+
+    .action-btns a {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+        color: #000;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+    }
+
+    .action-btns a:hover {
+        transform: scale(1.15);
+        background: #0d6efd;
+        color: #fff;
+    }
+
+    /* Body */
+    .card-body {
+        padding: 1.4rem;
+    }
+
+    .card-title {
+        font-weight: 600;
+    }
+
+    .stock {
+        font-size: 12px;
+    }
+</style>
+
+<div class="container mt-5">
+    <h3>Category List</h3>
+    <div class="row mt-3">
+        {% for cat in category %}
+        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
+            <div class="card category-card border">
+                <div class="category-img-wrap">
+                    <img src="{{ cat.image.url }}" class="category-img" alt="{{ cat.category_img }}">
+                    <!-- Floating Buttons -->
+                    <div class="action-btns">
+                        <a href="#" title="View">👁</a>
+                    </div>
+                </div>
+                <div class="px-4 pb-4 pt-3">
+                    <h6 class="card-title mb-1 mt-2 text-capitalize">
+                        {{cat.category_name}}
+                    </h6>
+                    <p class="text-muted small mb-2">
+                        {{ cat.description|truncatechars:20 }}
+                    </p>
+                    {% if cat.is_available %}
+                    <span class="badge bg-success stock">In Stock</span>
+                    {% else %}
+                    <span class="badge bg-danger stock">Out of Stock</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
+
 {% endblock %}
