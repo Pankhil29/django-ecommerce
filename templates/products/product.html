@@ -2,16 +2,18 @@
 {% block content %}
 
 <div class="container">
-    <h1>Product Page</h1>
-    {% for pro in products %}
-    <ul>
-        <li>name : {{pro.product_name}}</li>
-        <li>des : {{pro.description}}</li>
-        <li>price : {{pro.price}}$</li>
-        <li>is_available : {{pro.is_available}}</li>
-        <li>stock : {{pro.stock}}</li>
-    </ul>
-    {% endfor %}
+    <div class="card col-4">
+        <h1>Product Page</h1>
+        {% for pro in products %}
+        <ul>
+            <li>name : {{pro.product_name}}</li>
+            <li>des : {{pro.description}}</li>
+            <li>price : {{pro.price}}$</li>
+            <li>is_available : {{pro.is_available}}</li>
+            <li>stock : {{pro.stock}}</li>
+        </ul>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
