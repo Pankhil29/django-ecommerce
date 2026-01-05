@@ -2,8 +2,8 @@
 {% block content %}
 
 <style>
-    /* ===== Ultra Modern Product Card ===== */
-    .product-card {
+    /* ===== Ultra Modern category Card ===== */
+    .category-card {
         position: relative;
         border-radius: 20px;
         overflow: hidden;
@@ -13,7 +13,7 @@
         transition: all 0.4s ease;
     }
 
-    .product-card::before {
+    .category-card::before {
         content: "";
         position: absolute;
         inset: 0;
@@ -27,29 +27,29 @@
         transition: 0.4s;
     }
 
-    .product-card:hover::before {
+    .category-card:hover::before {
         opacity: 1;
     }
 
-    .product-card:hover {
+    .category-card:hover {
         transform: translateY(-14px);
         box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
     }
 
     /* Image */
-    .product-img-wrap {
+    .category-img-wrap {
         position: relative;
         overflow: hidden;
     }
 
-    .product-img {
+    .category-img {
         height: 240px;
         width: 100%;
         object-fit: cover;
         transition: transform 0.6s ease, filter 0.6s ease;
     }
 
-    .product-card:hover .product-img {
+    .category-card:hover .category-img {
         transform: scale(1.15);
         filter: brightness(0.9);
     }
@@ -78,7 +78,7 @@
         transition: 0.4s;
     }
 
-    .product-card:hover .action-btns {
+    .category-card:hover .action-btns {
         bottom: 18px;
     }
 
@@ -116,46 +116,40 @@
 </style>
 
 <div class="container mt-5">
-    <h3>Products</h3>
+    <h3>{{ single_category }} Product List</h3>
+    {% if category_products %}
     <div class="row mt-3">
-        {% for pro in products %}
+        {% for cat in category_products %}
         <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-            <div class="card product-card border">
-                <div class="product-img-wrap">
-                    <img src="{{ pro.image.url }}" class="product-img" alt="{{ pro.product_name }}">
-                    <span class="price-chip">
-                        ₹{{ pro.price }}
-                    </span>
+            <div class="card category-card border">
+                <div class="category-img-wrap">
+                    <img src="{{ cat.image.url }}" class="category-img" alt="{{ cat.image }}">
+
+
                     <!-- Floating Buttons -->
                     <div class="action-btns">
-                        <a href="#" title="Wishlist">❤</a>
-                        <a href="{% url 'add_to_cart' pro.id %}" title="Add to Cart">🛒</a>
                         <a href="#" title="View">👁</a>
                     </div>
                 </div>
                 <div class="px-4 pb-4 pt-3">
-                    <small class="text-capitalize">{{ pro.category }}</small>
                     <h6 class="card-title mb-1 mt-2 text-capitalize">
-                        {{ pro.product_name }}
+                        {{cat.category_name}}
                     </h6>
-
                     <p class="text-muted small mb-2">
-                        {{ pro.description|truncatechars:55 }}
+                        {{ cat.description|truncatechars:20 }}
                     </p>
-                    {% if pro.is_available %}
+
                     <span class="badge bg-success stock">In Stock</span>
-                    {% else %}
-                    <span class="badge bg-danger stock">Out of Stock</span>
-                    {% endif %}
-                    <br>
-                    <!-- <a href="#" class="btn btn-outline-primary shadow mt-3">
-                        Add to Cart
-                    </a> -->
+
+
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
+    {% else %}
+    <h3>No products available in this category.</h3>
+    {% endif %}
 </div>
 
 {% endblock %}
