@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container my-5">
+    <div class="row g-4">
+
+        <!-- Cart Items -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+
+                    <!-- Item -->
+                    {% for pro in cart_items %}
+                    <div class="row align-items-center mb-4">
+                        <div class="col-3 col-md-2">
+                            <img src="{{pro.product.image.url}}" class="img-fluid rounded">
+                        </div>
+
+                        <div class="col-9 col-md-4">
+                            <h6 class="mb-1">{{ pro.product.product_name }}</h6>
+                            <small class="text-muted">{{ pro.product.description }}</small>
+                        </div>
+
+                        <div class="col-md-3 mt-3 mt-md-0">
+                            <div class="input-group input-group-sm">
+                                <a href="{% url 'decrease_quantity' pro.product.id %}"><button
+                                        class="btn btn-outline-success">-</button></a>
+                                <input type="text" class="form-control text-center" value="{{pro.quantity}}">
+                                <a href="{% url 'increase_quantity' pro.product.id %}"><button
+                                        class="btn btn-outline-success">+</button></a>
+                            </div>
+                        </div>
+
+                        <div class="col-md-auto mt-3 mt-md-0">
+                            <strong class="text-success">₹ {{ pro.subtotal }}</strong>
+                        </div>
+
+                        <div class="col-md-1 mt-3 mt-md-0 text-end">
+                            <a href="{% url 'remove_from_cart' pro.product.id %}"><button
+                                    class="btn btn-sm btn-danger">Remove</button></a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <hr>
+
+                    <!-- Repeat item block for more products -->
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="mb-3">Summary</h5>
+
+                    <div class="d-flex justify-content-between">
+                        <span>Subtotal</span>
+                        <span>₹ {{ total }}</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <span>Discount</span>
+                        <span>10%</span>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between fw-bold text-success fs-5">
+                        <span>Total</span>
+                        <span>{{ tax }}</span>
+                    </div>
+
+                    <button class="btn btn-success w-100 mt-3">Checkout</button>
+                    <button class="btn btn-outline-success w-100 mt-2">Continue Shopping</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{% endblock %}
