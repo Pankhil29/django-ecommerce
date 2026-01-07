@@ -1,160 +1,242 @@
 {% extends 'base.html' %}
 {% block content %}
-
 <style>
-    /* ===== Ultra Modern Product Card ===== */
+    /* ================= LAYOUT ================= */
+
+    .shop-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 24px;
+    }
+
+    /* ================= SIDEBAR ================= */
+
+    .sidebar {
+        background: #fff;
+        border-radius: 12px;
+        padding: 18px;
+        border: 1px solid var(--primary-border);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+        height: fit-content;
+    }
+
+    .filter-box {
+        margin-bottom: 22px;
+    }
+
+    .filter-title {
+        font-size: 0.95rem;
+        font-weight: 600;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 6px;
+        margin-bottom: 12px;
+    }
+
+    .category-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .category-list li {
+        margin-bottom: 8px;
+    }
+
+    .category-list a {
+        display: block;
+        padding: 6px 10px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        text-decoration: none;
+        color: #444;
+    }
+
+    .category-list a:hover {
+        background: #f2f2f2;
+        color: var(--primary);
+    }
+
+    .sidebar input {
+        width: 100%;
+        padding: 7px;
+        margin-bottom: 8px;
+        border-radius: 6px;
+        border: 1px solid #ddd;
+        font-size: 0.85rem;
+    }
+
+    .filter-btn {
+        width: 100%;
+        padding: 8px;
+        background: var(--primary);
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+    }
+
+    /* ================= PRODUCT GRID ================= */
+
+    .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 18px;
+    }
+
+    /* ================= PRODUCT CARD ================= */
+
     .product-card {
-        position: relative;
-        border-radius: 20px;
-        overflow: hidden;
-        background: rgba(255, 255, 255, 0.75);
-        backdrop-filter: blur(14px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        transition: all 0.4s ease;
-    }
-
-    .product-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: 20px;
-        padding: 2px;
-        background: linear-gradient(135deg, #6f42c1, #0d6efd, #20c997);
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
-        opacity: 0;
-        transition: 0.4s;
-    }
-
-    .product-card:hover::before {
-        opacity: 1;
+        background: #fff;
+        border-radius: 18px;
+        border: 1px solid var(--primary-border);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease;
     }
 
     .product-card:hover {
-        transform: translateY(-14px);
-        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+        transform: translateY(-5px);
     }
 
-    /* Image */
-    .product-img-wrap {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .product-img {
-        height: 240px;
+    .product-card img {
         width: 100%;
-        object-fit: cover;
-        transition: transform 0.6s ease, filter 0.6s ease;
+        height: 200px;
+        object-fit: contain;
+        padding: 16px;
     }
 
-    .product-card:hover .product-img {
-        transform: scale(1.15);
-        filter: brightness(0.9);
-    }
-
-    /* Price Chip */
-    .price-chip {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        padding: 6px 14px;
-        font-size: 14px;
-        border-radius: 999px;
-        background: rgba(0, 0, 0, 0.65);
-        color: #fff;
-        backdrop-filter: blur(8px);
-    }
-
-    /* Floating Actions */
-    .action-btns {
-        position: absolute;
-        bottom: -60px;
-        left: 50%;
-        transform: translateX(-50%);
+    .product-body {
+        padding: 0 16px 16px;
         display: flex;
-        gap: 12px;
-        transition: 0.4s;
+        flex-direction: column;
+        flex-grow: 1;
     }
 
-    .product-card:hover .action-btns {
-        bottom: 18px;
+    .product-category {
+        font-size: 0.75rem;
+        color: #888;
     }
 
-    .action-btns a {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #fff;
-        color: #000;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-        transition: 0.3s;
-    }
-
-    .action-btns a:hover {
-        transform: scale(1.15);
-        background: #0d6efd;
-        color: #fff;
-    }
-
-    /* Body */
-    .card-body {
-        padding: 1.4rem;
-    }
-
-    .card-title {
+    .product-title {
+        font-size: 0.95rem;
         font-weight: 600;
+        margin: 6px 0;
     }
 
-    .stock {
-        font-size: 12px;
+    .price {
+        font-weight: 600;
+        color: var(--accent);
+    }
+
+    .product-desc {
+        font-size: 0.8rem;
+        color: #777;
+        margin: 6px 0;
+        flex-grow: 1;
+    }
+
+    .btn-atc {
+        margin-top: auto;
+        background: var(--primary);
+        color: #fff !important;
+        border-radius: 5px;
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    @media (max-width: 991px) {
+        .shop-layout {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .product-card img {
+            height: 150px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .product-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .pd-url:hover {
+        text-decoration: none;
+
     }
 </style>
 
-<div class="container mt-5">
-    <h3>Products</h3>
-    <div class="row mt-3">
-        {% for pro in products %}
-        <div class="col-xl-3 col-lg-4 col-md-6 mb-4">
-            <div class="card product-card border">
-                <div class="product-img-wrap">
-                    <img src="{{ pro.image.url }}" class="product-img" alt="{{ pro.product_name }}">
-                    <span class="price-chip">
-                        ₹{{ pro.price }}
-                    </span>
-                    <!-- Floating Buttons -->
-                    <div class="action-btns">
-                        <a href="#" title="Wishlist">❤</a>
-                        <a href="{% url 'add_to_cart' pro.id %}" title="Add to Cart">🛒</a>
-                        <a href="#" title="View">👁</a>
-                    </div>
-                </div>
-                <div class="px-4 pb-4 pt-3">
-                    <small class="text-capitalize">{{ pro.category }}</small>
-                    <h6 class="card-title mb-1 mt-2 text-capitalize">
-                        {{ pro.product_name }}
-                    </h6>
 
-                    <p class="text-muted small mb-2">
-                        {{ pro.description|truncatechars:55 }}
-                    </p>
-                    {% if pro.is_available %}
-                    <span class="badge bg-success stock">In Stock</span>
-                    {% else %}
-                    <span class="badge bg-danger stock">Out of Stock</span>
-                    {% endif %}
-                    <br>
-                    <!-- <a href="#" class="btn btn-outline-primary shadow mt-3">
-                        Add to Cart
-                    </a> -->
-                </div>
+<div class="container mt-5">
+    <h2 class="mb-4">All Products</h2>
+
+    <div class="shop-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="filter-box">
+                <h6 class="filter-title">Categories</h6>
+                <ul class="category-list">
+                    {% for cat in category %}
+                    <li>
+                        <a href="{% url 'category_page' cat.pk %}">
+                            {{ cat.category_name }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
             </div>
-        </div>
-        {% endfor %}
+
+            <div class="filter-box">
+                <h6 class="filter-title">Price Range</h6>
+                <form method="get">
+                    <input type="number" name="min_price" placeholder="Min ₹">
+                    <input type="number" name="max_price" placeholder="Max ₹">
+                    <button class="filter-btn">Apply</button>
+                </form>
+            </div>
+
+            <div class="filter-box">
+                <h6 class="filter-title">Availability</h6>
+                <label><input type="checkbox"> In Stock</label>
+                <label><input type="checkbox"> Out of Stock</label>
+            </div>
+
+        </aside>
+
+        <!-- PRODUCTS -->
+        <main>
+            <div class="product-grid">
+
+
+                {% for pro in product %}
+                <div class="product-card">
+                    <a href="{% url 'product_details' pro.id %}" class="pd-url">
+
+                        <img src="{{ pro.image.url }}" alt="{{ pro.product_name }}">
+
+                        <div class="product-body">
+                            <small class="product-category">{{ pro.category }}</small>
+
+                            <h6 class="product-title">{{ pro.product_name }}</h6>
+
+                            <span class="price">₹{{ pro.price }}</span>
+
+                            <p class="product-desc">
+                                {{ pro.description|truncatechars:40 }}
+                            </p>
+
+                            <a class="btn btn-atc btn-sm" href="{% url 'add_to_cart'  pro.pk %}">Add to cart</a>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+
     </div>
 </div>
 

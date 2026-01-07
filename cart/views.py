@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
 from products.models import Product
 from django.shortcuts import get_object_or_404
@@ -15,7 +16,7 @@ def add_to_cart(req,pk):
     req.session['cart'] = cart
     req.session.modified = True
     
-    return redirect('cart_detail')
+    return HttpResponseRedirect(req.META.get('HTTP_REFERER','/'))
 
 def cart_detail(request):
     cart = request.session.get('cart', {})

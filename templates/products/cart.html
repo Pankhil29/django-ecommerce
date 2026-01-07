@@ -5,9 +5,9 @@
     <div class="row g-4">
 
         <!-- Cart Items -->
-        <div class="col-lg-8">
-            <div class="card shadow-sm">
-                <div class="card-body">
+        <div class="col-lg-8 m-auto">
+            <div class="card shadow-sm ">
+                <div class="card-body ">
 
                     <!-- Item -->
                     {% for pro in cart_items %}
@@ -37,7 +37,7 @@
 
                         <div class="col-md-1 mt-3 mt-md-0 text-end">
                             <a href="{% url 'remove_from_cart' pro.product.id %}"><button
-                                    class="btn btn-sm btn-danger">Remove</button></a>
+                                    class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button></a>
                         </div>
                     </div>
                     {% endfor %}

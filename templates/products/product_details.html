@@ -1,0 +1,177 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    .product-page {
+        /* margin: 60px 0; */
+        /* border: 1px solid var(--primary-border); */
+        /* border-radius: 13px; */
+    }
+
+    .product-image-box {
+        background: #fafafa;
+        border-radius: 16px;
+        padding: 30px;
+        /* border: 1px solid var(--primary-border); */
+    }
+
+    .product-image-box img {
+        width: 100%;
+        max-height: 480px;
+        object-fit: contain;
+    }
+
+    .product-info {
+        padding-left: 25px;
+
+
+    }
+
+    .product-info h1 {
+        font-size: 30px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
+    .rating {
+        margin: 6px 0 8px;
+        font-size: 16px;
+        color: #f5a623;
+    }
+
+    .rating span {
+        color: var(--text-muted);
+        font-weight: 500;
+    }
+
+    .price {
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--accent);
+
+    }
+
+    .desc {
+        font-size: 15px;
+        color: var(--text-muted);
+        line-height: 1.7;
+        margin-bottom: 15px;
+    }
+
+    .select-box label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    .select-box select {
+        border-radius: 6px;
+        padding: 6px 8px;
+        /* padding-right: 10px; */
+        border: 1px solid var(--primary-border);
+    }
+
+    .select-box select:focus {
+        border-color: var(--primary);
+        box-shadow: none;
+    }
+
+    .add-cart-btn {
+        background: var(--primary);
+        color: #fff !important;
+        border-radius: 8px;
+        padding: 14px 28px;
+        font-weight: 600;
+        font-size: 15px;
+        border: none;
+        transition: 0.2s ease;
+        text-decoration: none;
+    }
+
+    .add-cart-btn:hover {
+        background: var(--primary-hover);
+        transform: translateY(-1px);
+    }
+
+    @media (max-width: 720px) {
+
+        .product-info h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+          .price {
+        font-size: 26px;
+       
+    }
+
+        .border-end-sm-0 {
+            border-right: 0 !important;
+        }
+
+        .product-info {
+
+            margin: 20px 0 0 20px;
+
+        }
+    }
+</style>
+
+<div class="container product-page mx-auto m-5 p-4 border">
+    <div class="row align-items-start g-5 ">
+
+        <!-- IMAGE -->
+        <div class="col-md-6 border-right border-end-sm-0">
+            <div class="product-image-box">
+                <img src="{{ product.image.url }}" alt="{{ product.product_name }}">
+            </div>
+        </div>
+
+        <!-- DETAILS -->
+        <div class="col-md-6 product-info ">
+
+            <h1>{{ product.product_name }}</h1>
+
+            <div class="rating">
+                ★★★★☆ <span>(29 reviews)</span>
+            </div>
+
+            <div class="price mb-1">₹ {{ product.price }}</div>
+
+            <p class="desc">
+                {{ product.description }}
+            </p>
+
+            <div class="select-box mb-2">
+                <label>Choose Color</label>
+                <br>
+                <select class="form-select">
+                    <option>Select</option>
+                    <option>Blue</option>
+                    <option>Black</option>
+                </select>
+            </div>
+
+            <div class="select-box mb-4">
+                <label>Select Size</label>
+                <br>
+                <select class="form-select">
+                    <option>Select</option>
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                </select>
+            </div>
+
+            <a class="add-cart-btn btn-sm btn-sm-md">
+                Add to Cart
+            </a>
+
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

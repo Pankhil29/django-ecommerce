@@ -1,87 +1,87 @@
 {% load static %}
 <link href="{% static 'css/home.css' %}" rel="stylesheet">
-<style>
-    .dropdown-toggle::after {
-        display: none !important;
-    }
-
-    .dropdown-btn {
-        background-color: #22C55E;
-    }
-</style>
 
 {% block content %}
-<header class="container-fluid px-5 py-2">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-lg">
-        <!-- LEFT : LOGO -->
-        <a class="navbar-brand font-weight-bold text-primary" href="#">
-            <span class="shopping">Shopping</span><span class="text-dark">Kart</span>
+
+
+<header class="container-fluid px-0 px-sm-3 py-2 border-bottom sticky-top bg-white">
+    <nav class="navbar d-flex align-items-center">
+
+        <!-- LEFT : LOGO (ALL SCREENS) -->
+        <a class="navbar-brand fw-bold text-primary logo font-weight-bold " href="{% url 'home' %}">
+            <span class="shopping">Shopping</span><span class="text-dark kart">Kart</span>
         </a>
 
-        <!-- HAMBURGER -->
-        <button class="navbar-toggler btn-colors" type="button" data-toggle="collapse" data-target="#mainNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <!-- CENTER : DESKTOP ONLY -->
+        <div class="d-none d-lg-flex flex-grow-1 align-items-center gap-2 px-3 overflow-hidden">
 
-        <!-- COLLAPSE -->
-        <div class="collapse navbar-collapse" id="mainNavbar">
+            <!-- <a href="{% url 'product' %}" class="btn btn-colors text-white m-1 py-2">
+                Products
+            </a> -->
 
-            <!-- CENTER SECTION -->
-            <div class="mx-lg-auto d-flex justify-content-center align-items-center flex-column flex-lg-row">
-                <a href="{% url 'product' %}">
-                    <button class="btn btn-sm py-2 mb-2 mb-lg-0 mr-lg-2 btn-colors">
-                        Products
-                    </button>
-                </a>
-                <div class="dropdown mr-2">
-                    <button class="btn btn-sm py-2 mb-2 mb-lg-0 dropdown-btn dropdown-toggle" type="button"
-                        id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-bars me-1"></i> All Categories
-                    </button>
+            <div class="dropdown flex-shrink-0">
+                <button class="btn btn-colors py-2 m-1 dropdown-toggle" data-bs-toggle="dropdown">
+                    <i class="fas fa-bars me-1"></i>&nbsp;All Categories
+                </button>
+                <ul class="dropdown-menu ">
+                    {% for cat in category %}
+                    <li>
+                        <a class="dropdown-item" href="{% url 'category_page' cat.pk %}">
+                            {{ cat.category_name }}
+                        </a>
+                    </li>
+                    {% empty %}
+                    <li><span class="dropdown-item text-muted">No categories</span></li>
+                    {% endfor %}
+                </ul>
+            </div>
 
-                    <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                        {% for cat in category %}
-                        <li>
-                            <a class="dropdown-item" href="{% url 'category_page' cat.pk %}">
-                                {{ cat.category_name }}
-                            </a>
-                        </li>
-                        {% empty %}
-                        <li>
-                            <span class="dropdown-item text-muted">No categories</span>
-                        </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+            <form class="d-flex align-items-center flex-grow-1" style="max-width: 80%;">
+                <input class="form-control  search-input flex-grow-1" type=" search" placeholder="Search">
+                <button class="btn btn-colors ms-1 m-1 py-2 flex-shrink-0">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+        </div>
 
-                <form class="d-flex">
-                    <input class="form-control py-2" style="min-width:300px" type="search" placeholder="Search">
-                    <button class="btn btn-colors ml-1 py-2">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </form>
+        <!-- CENTER : MOBILE ONLY (AUTO WIDTH SEARCH) -->
+        <form class="d-flex d-lg-none align-items-center flex-grow-1 mx-2 overflow-hidden">
+            <input class="form-control flex-grow-1 search-input-1" type="search" placeholder="Search">
+            <button class="btn btn-colors search-btn  ms-1 m-1 py-2 flex-shrink-0">
+                <i class="fas fa-search search-icon"></i>
+            </button>
+        </form>
+
+        <!-- RIGHT SECTION -->
+        <div class="d-flex align-items-center gap-3">
+
+            <!-- DESKTOP LOGIN TEXT -->
+            <div class="d-none d-lg-block">
+                <small>Welcome guest!</small><br>
+                <a href="#">Login</a> | <a href="#">Signup</a>
 
             </div>
 
-            <!-- RIGHT -->
-            <div class="ml-lg-auto d-flex flex-column flex-lg-row align-items-lg-center mt-3 mr-3 mt-lg-0">
+            <!-- MOBILE LOGIN ICON -->
+            <a href="#" class="d-lg-none">
+                <i class="fas fa-user fa-xs fa-sm-lg"></i>
+            </a>
 
-                <div class="text-lg-right mr-lg-3 mb-2 mb-lg-0">
-                    <small>Welcome guest!</small><br>
-                    <a href="#">Sign in</a> | <a href="#">Register</a>
-                </div>
-
-                <div class="position-relative">
-                    <a href="{% url 'cart_detail' %}">
-                        <i class="fas fa-shopping-cart fa-lg"></i>
-                        <span class="badge badge-danger position-absolute" style="top:-6px; right:-10px;">
-                            {{ cart_quantity}}</span>
-                    </a>
-                </div>
-
+            <!-- CART (ALL SCREENS) -->
+            <div class="position-relative mx-2">
+                <a href="{% url 'cart_detail' %}">
+                    <i class="fas fa-shopping-cart fa-lg fa-sm-lg"></i>
+                    <span class="badge bg-danger position-absolute text-white translate-middle"
+                        style="top:-6px; right:-10px;">
+                        {{ cart_quantity }}
+                    </span>
+                </a>
             </div>
 
         </div>
+
     </nav>
 </header>
+
+
 {% endblock %}

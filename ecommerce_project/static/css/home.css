@@ -2,26 +2,154 @@
     font-family: 'poppins', sans-serif;
 }
 
-.logo {
-    font-size: 29px;
-    font-family: "Atomic Age", system-ui;
-    font-weight: 400;
-    font-style: normal;
+/* ================================
+   GLOBAL THEME VARIABLES
+================================ */
+:root {
+    --primary: #7C3AED;
+    /* Purple */
+    --primary-hover: #6D28D9;
+    --accent: #EC4899;
+    /* Pink */
+    --text-dark: #111827;
+    --text-muted: #6B7280;
+    --bg-light: #F9FAFB;
+    --white: #FFFFFF;
+    --success: #16A34A;
+    --primary-border: #beaadf;
 }
 
-header a {
-    color: inherit;
+/* ================================
+   GLOBAL RESET / BASE
+================================ */
+body {
+    /* background-color: var(--bg-light); */
+    color: var(--text-dark);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.shopping {
-    color: #22C55E;
+/* ================================
+   LOGO
+================================ */
+.logo .shopping {
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 1.4rem;
 }
 
-header a:hover {
+@media (max-width: 576px) {
+
+    /* .search-icon {
+        font-size: 0.6rem;
+        /* try 0.6–0.8 */
+
+    .search-btn {
+        padding: 2px 8px !important;
+    }
+
+    .navbar-brand .shopping,
+    .navbar-brand .kart {
+        font-size: 15px !important;
+    }
+}
+
+/* ================================
+   NAVBAR
+================================ */
+.navbar {
+    background-color: var(--white) !important;
+}
+
+.navbar a {
+    color: var(--text-dark);
     text-decoration: none;
 }
 
+.navbar a:hover {
+    color: var(--primary);
+}
+
+/* ================================
+   GLOBAL BUTTON SYSTEM
+   (MOST IMPORTANT PART)
+================================ */
 .btn-colors {
-    background-color: #22C55E;
-    border-color: #22C55E;
+    background-color: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-colors:hover {
+    background-color: var(--primary-hover);
+    color: #fff;
+}
+
+/* secondary / dropdown buttons if needed */
+.dropdown-btn {
+    background-color: var(--accent);
+    color: #fff;
+}
+
+.dropdown-btn:hover {
+    background-color: #DB2777;
+}
+
+/* ================================
+   FORM INPUTS
+================================ */
+.form-control {
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.15rem rgba(124, 58, 237, 0.25);
+}
+
+/* ================================
+   BADGES (CART, PRICE, STOCK)
+================================ */
+.badge {
+    font-size: 0.7rem;
+}
+
+.badge.bg-danger {
+    background-color: var(--accent) !important;
+}
+
+/* Stock badge example */
+.badge-stock {
+    background-color: var(--success);
+    color: #fff;
+    font-size: 0.75rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+/* ================================
+   PRODUCT IMAGES (VERY IMPORTANT)
+================================ */
+.product-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+/* ================================
+   DROPDOWN
+================================ */
+.dropdown-menu {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown-item:hover {
+    background-color: rgba(124, 58, 237, 0.08);
+    color: var(--primary);
 }
